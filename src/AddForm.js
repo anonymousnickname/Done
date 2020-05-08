@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, Button, View } from 'react-native'
+import { StyleSheet, TextInput, Button, Alert, View } from 'react-native'
 
 import { theme } from '../theme'
 
@@ -10,7 +10,10 @@ export const AddForm = ({ onSubmit }) => {
             onSubmit(title);
             setTitle('');
         } else {
-            //error
+            Alert.alert(
+                '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAdvice',
+                "\t\t\t\t\t\t\t\t\t\t\t\tIt can't be empty",
+              );
         }
       
     }
@@ -18,6 +21,7 @@ export const AddForm = ({ onSubmit }) => {
         <View style={styles.container}>
             <TextInput 
                     style={styles.container__input}
+                    placeholder="New business"
                     onChangeText={setTitle}
                     value={title}/>
                     
