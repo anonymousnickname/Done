@@ -6,7 +6,7 @@ import { theme } from '../theme'
 export const Header = () => {
     return (      
     <View style={styles.header}>
-        <Text style={styles.title}>
+        <Text style={styles.header__title}>
             Done
         </Text>
     </View>
@@ -16,13 +16,13 @@ export const Header = () => {
 const styles = StyleSheet.create({
     header: {
         height: 80,
-        backgroundColor: theme.darkBackgroundColor,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: theme.darkBackgroundColor,
     },
-    title: {
-        color: theme.lightColor,
+    header__title: {
         fontSize: 25,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: theme.lightColor
     }
 })
