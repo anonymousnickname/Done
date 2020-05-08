@@ -1,4 +1,5 @@
 export const theme = {
     darkBackgroundColor: '#000',
-    lightColor: '#fff'
+    lightColor: '#fff',
+    itemTodoSize: 9
 }

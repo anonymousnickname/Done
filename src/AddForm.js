@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, TextInput, Button, View } from 'react-native'
 
 import { theme } from '../theme'
 
-export const AddForm = () => {
+export const AddForm = ({ onSubmit }) => {
+    const [title, setTitle] = useState('');
+    const handlerDoings = () => {
+        if(title.trim()) {
+            onSubmit(title);
+            setTitle('');
+        } else {
+            //error
+        }
+      
+    }
     return (
         <View style={styles.container}>
-            <TextInput style={styles.container__input}/>
-            <Button title="ADD NEW" color={theme.darkBackgroundColor}/>
+            <TextInput 
+                    style={styles.container__input}
+                    onChangeText={setTitle}
+                    value={title}/>
+                    
+            <Button title="ADD NEW" 
+                    color={theme.darkBackgroundColor}
+                    onPress={handlerDoings}/>
         </View>
     )
 }
