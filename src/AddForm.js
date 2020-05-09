@@ -12,7 +12,7 @@ export const AddForm = ({ onSubmit }) => {
         } else {
             Alert.alert(
                 '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAdvice',
-                "\t\t\t\t\t\t\t\t\t\t\t\tIt can't be empty",
+                "It can't be empty",
               );
         }
       
@@ -20,14 +20,15 @@ export const AddForm = ({ onSubmit }) => {
     return (
         <View style={styles.container}>
             <TextInput 
-                    style={styles.container__input}
-                    placeholder="New business"
+                    value={title}
+                    autoCorrect={false}
                     onChangeText={setTitle}
-                    value={title}/>
+                    placeholder="New business"
+                    style={styles.container__input}/>
                     
             <Button title="ADD NEW" 
-                    color={theme.darkBackgroundColor}
-                    onPress={handlerDoings}/>
+                    onPress={handlerDoings}
+                    color={theme.darkBackgroundColor}/>
         </View>
     )
 }

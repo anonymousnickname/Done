@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, FlatList, View } from 'react-native'
 
 import { TodoItem } from './src/TodoItem' 
 import { Header } from './src/Header'
@@ -18,12 +18,20 @@ export default function App() {
       }
     ])
   }
+
+  const removeTodo = id => {
+    setDoings(prev => prev.filter(item => item.id !== id))
+  }
   return (
     <View>
       <Header/>
       <View style={styles.container}>
         <AddForm onSubmit={addTodo}/>
-        {doings.map(todo => <TodoItem data={todo} key={todo.id}/>)}  
+        <FlatList
+            style={styles.list}
+            data={doings}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => (<TodoItem data={item} onRemove={removeTodo}/>)}/>
       </View>
     </View>
   )
@@ -33,5 +41,8 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 30
+  }, 
+  list: {
+    marginVertical: 15
   }
 })
