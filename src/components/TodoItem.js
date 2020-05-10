@@ -3,12 +3,12 @@ import { TouchableOpacity ,StyleSheet, View, Text } from 'react-native'
 
 import { theme } from '../../theme'
 
-export const TodoItem = ({data, onRemove}) => {
+export const TodoItem = ({data, onRemove, showTodo}) => {
     const setTouchableHandler = () => {
         onRemove(data.id)
     }
     return (
-        <TouchableOpacity activeOpacity={0.7} onLongPress={setTouchableHandler}>
+        <TouchableOpacity activeOpacity={0.7} onLongPress={setTouchableHandler} onPress={() => showTodo(data.id)}>
         <View style={styles.container}>
             <Text style={styles.text}>
                 {data.title}

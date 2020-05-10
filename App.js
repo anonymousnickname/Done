@@ -23,10 +23,11 @@ export default function App() {
     setDoings(prev => prev.filter(item => item.id !== id))
   }
 
-  let content = <MainScreen addTodo={addTodo} doings={doings} removeTodo={removeTodo}/>
+  let content = <MainScreen addTodo={addTodo} doings={doings} removeTodo={removeTodo} showTodo={setScreen}/>
 
   if (screen) {
-    content = <TodoItemScreen/>
+    const selectedTodo = doings.find(todo => todo.id === screen)
+    content = <TodoItemScreen goBack={() => setScreen(null)} data={selectedTodo}/>
   }
   return (
     <View>
