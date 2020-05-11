@@ -14,12 +14,14 @@ export const AddForm = ({ onSubmit }) => {
                 'Advice',
                 "It can't be empty",
               );
+            setTitle('');
         }
       
     }
     return (
         <View style={styles.container}>
             <TextInput 
+                    maxLength={15}
                     value={title}
                     autoCorrect={false}
                     onChangeText={setTitle}
