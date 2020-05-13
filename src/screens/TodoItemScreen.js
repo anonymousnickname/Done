@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 
@@ -7,23 +7,28 @@ import { EditModal } from '../components/EditModal'
 import { AppCard } from './../components/ui/AppCard'
 import { AppTextBold } from '../components/ui/AppTextBold'
 import { AppButton } from '../components/ui/AppButton'
+import { TodoContext } from '../context/todo/todoContext'
+import { ScreenContext } from '../context/screen/screenContext'
 
 
 
-export const TodoItemScreen = ({goBack, data, onRemove, onSave}) => {
+export const TodoItemScreen = () => {
+    const {doings, updateTodo, removeTodo} = useContext(TodoContext)
+    const {todoId, changeScreen} = useContext(ScreenContext)
     const [modal, setModal] = useState(false)
 
+    const todo = doings.find(item => item.id === todoId)
+
     const saveHandler = title => {
+        updateTodo(todo.id, title)
         setModal(false)
-        onSave(data.id, title)
-      
     }
     return (
         <View style={styles.container}>
-            <EditModal visible={modal} onBack={() => setModal(false)} value={data.title} onSave={saveHandler}/>
+            <EditModal visible={modal} onBack={() => setModal(false)} value={todo.title} onSave={saveHandler}/>
             <AppCard style={styles.card}>
             <AppTextBold style={styles.title}>
-                {data.title}
+                {todo.title}
             </AppTextBold>
             <AppButton  onPress={() => setModal(true)} color={theme.EDIT_COLOR}>
                 <FontAwesome name='edit' size={theme.ICON_SIZE} />
@@ -31,12 +36,12 @@ export const TodoItemScreen = ({goBack, data, onRemove, onSave}) => {
             </AppCard>
             <View style={styles.buttonsWrap}>
                 <View style={styles.button}>
-                    <AppButton onPress={goBack} color={theme.BACK_COLOR} size={theme.ICON_SIZE}>
+                    <AppButton onPress={() => changeScreen(null)} color={theme.BACK_COLOR} size={theme.ICON_SIZE}>
                     <AntDesign name='back' size={theme.ICON_SIZE}/>
                     </AppButton>
                 </View>
                 <View style={styles.button}>
-                    <AppButton onPress={() => onRemove(data.id)} color={theme.DELETE_COLOR}>
+                    <AppButton onPress={() => removeTodo(todo.id)} color={theme.DELETE_COLOR}>
                         <FontAwesome name='trash' size={theme.ICON_SIZE}/>
                     </AppButton>
                 </View>

@@ -15,13 +15,17 @@ export const EditModal = ({visible, onBack, value, onSave}) => {
         }
   
     }
+    const cancelHandler = () => {
+        setTitle(value)
+        onBack()
+    }
     return (
         <Modal visible={visible} animationType="slide">
             <View style={styles.container}>
                 <TextInput style={styles.input} value={title} onChangeText={setTitle} maxLength={20} autoCorrect={false}/>
                 <View style={styles.buttons}>
                     <View style={styles.button}>
-                        <AppButton onPress={onBack} color={theme.DELETE_COLOR}>
+                        <AppButton onPress={cancelHandler} color={theme.DELETE_COLOR}>
                             CANCEL
                         </AppButton>
                     </View>
