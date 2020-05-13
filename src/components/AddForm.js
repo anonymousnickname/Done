@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, Button, Alert, View } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
+import { StyleSheet, TextInput, Keyboard, Alert, View } from 'react-native'
+
 
 import { theme } from '../../theme'
+import { AppButton } from '../components/ui/AppButton'
 
 export const AddForm = ({ onSubmit }) => {
     const [title, setTitle] = useState('');
@@ -9,6 +12,7 @@ export const AddForm = ({ onSubmit }) => {
         if(title.trim()) {
             onSubmit(title);
             setTitle('');
+            Keyboard.dismiss();
         } else {
             Alert.alert(
                 'Advice',
@@ -21,16 +25,16 @@ export const AddForm = ({ onSubmit }) => {
     return (
         <View style={styles.container}>
             <TextInput 
-                    maxLength={15}
+                    maxLength={20}
                     value={title}
                     autoCorrect={false}
                     onChangeText={setTitle}
-                    placeholder="New business"
+                    placeholder="Add your todo..."
                     style={styles.container__input}/>
                     
-            <Button title="ADD NEW" 
-                    onPress={handlerDoings}
-                    color={theme.darkBackgroundColor}/>
+            <AppButton onPress={handlerDoings} color={theme.DARK_COLOR}>
+                <FontAwesome name='plus-circle' size={theme.ICON_SIZE}/>
+            </AppButton>
         </View>
     )
 }
@@ -42,11 +46,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     container__input: {
-        padding: 4,
-        fontSize: 20,
-        width: '70%',
+        padding: 8,
+        fontSize: 22,
+        width: '75%',
         borderStyle: 'solid',
         borderBottomWidth: 2,
-        borderBottomColor: theme.darkBackgroundColor
+        borderBottomColor: theme.DARK_COLOR
     }
 })

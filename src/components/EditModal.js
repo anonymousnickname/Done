@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, Button, Modal, View, Alert } from 'react-native'
+import { StyleSheet, TextInput, Modal, View, Alert } from 'react-native'
 
 import { theme } from '../../theme.js'
+import { AppButton } from '../components/ui/AppButton'
 
 export const EditModal = ({visible, onBack, value, onSave}) => {
     const [title, setTitle] = useState(value)
@@ -17,13 +18,17 @@ export const EditModal = ({visible, onBack, value, onSave}) => {
     return (
         <Modal visible={visible} animationType="slide">
             <View style={styles.container}>
-                <TextInput style={styles.input} value={title} onChangeText={setTitle} maxLength={15} autoCorrect={false}/>
+                <TextInput style={styles.input} value={title} onChangeText={setTitle} maxLength={20} autoCorrect={false}/>
                 <View style={styles.buttons}>
                     <View style={styles.button}>
-                        <Button title="CANCEL" onPress={onBack} color={theme.deleteButton}/>
+                        <AppButton onPress={onBack} color={theme.DELETE_COLOR}>
+                            CANCEL
+                        </AppButton>
                     </View>
                     <View style={styles.button}>
-                        <Button title="SAVE" color={theme.saveColor} onPress={saveHandler}/>
+                        <AppButton color={theme.SAVE_COLOR} onPress={saveHandler}>
+                            SAVE
+                        </AppButton>
                     </View>
                 </View>
             </View>
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: 5,
-        color: theme.darkBackgroundColor,
+        color: theme.DARK_COLOR,
         borderBottomWidth: 2,
         width: '80%',
         fontSize: 20

@@ -1,7 +1,8 @@
 import React from 'react'
-import { TouchableOpacity ,StyleSheet, View, Text } from 'react-native'
+import { TouchableOpacity ,StyleSheet, View, Platform } from 'react-native'
 
 import { theme } from '../../theme'
+import { AppText } from './ui/AppText'
 
 export const TodoItem = ({data, onRemove, showTodo}) => {
     const setTouchableHandler = () => {
@@ -10,9 +11,9 @@ export const TodoItem = ({data, onRemove, showTodo}) => {
     return (
         <TouchableOpacity activeOpacity={0.7} onLongPress={setTouchableHandler} onPress={() => showTodo(data.id)}>
         <View style={styles.container}>
-            <Text style={styles.text}>
+            <AppText style={styles.text}>
                 {data.title}
-            </Text>
+            </AppText>
         </View>
         </TouchableOpacity>
     )
@@ -21,14 +22,13 @@ export const TodoItem = ({data, onRemove, showTodo}) => {
 const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
-        width: '95%',
-        padding: theme.itemTodoSize,
-        marginTop: theme.itemTodoSize,
-        borderRadius: theme.itemTodoSize,
-        backgroundColor: theme.darkBackgroundColor
+        width: '100%',
+        padding: theme.ITEM_TODO_SIZE+3,
+        marginTop: theme.ITEM_TODO_SIZE,
+        borderRadius: theme.ITEM_TODO_SIZE/2,
+        backgroundColor: Platform.OS === 'android' ? theme.DARK_COLOR : theme.LIGHT_COLOR
     },
     text: {
-        fontWeight: 'bold',
-        color: theme.lightColor
+        color: Platform.OS === 'android' ? theme.LIGHT_COLOR : theme.DARK_COLOR
     }
 })

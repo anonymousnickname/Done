@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: 10,
-        shadowColor: theme.darkBackgroundColor,
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        textShadowOffset: {width: 2, height: 2},
+        shadowColor: theme.DARK_COLOR,
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowOffset: {width: 1, height: 5},
         elevation: 8,
-        backgroundColor: theme.lightColor
+        backgroundColor: theme.LIGHT_COLOR
     }
 })
