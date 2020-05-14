@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { Header } from './components/Header'
@@ -11,10 +11,10 @@ export const MainLayout = () => {
   const {todoId} = useContext(ScreenContext)
 
     return (
-    <View>
+    <View style={styles.wrapper}>
         <Header/>
         <View style={styles.container}>
-            { todoId ? <TodoItemScreen/> : <MainScreen/>}
+            { todoId ? <TodoItemScreen/> : <MainScreen/> } 
         </View>
     </View>
     )
@@ -23,7 +23,11 @@ export const MainLayout = () => {
 const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 20,
-      paddingVertical: 30
+      paddingVertical: 30,
+      flex: 1
+    },
+    wrapper: {
+      flex: 1
     }
   })
   

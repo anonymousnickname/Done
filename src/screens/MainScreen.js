@@ -1,14 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import { StyleSheet, FlatList, Image, View } from 'react-native'
 
 import { AddForm } from '../components/AddForm'
 import { TodoItem } from '../components/TodoItem' 
 import { TodoContext } from '../context/todo/todoContext'
 import { ScreenContext } from '../context/screen/screenContext'
+import { AppLoader } from '../components/ui/AppLoader'
+import { AppTextBold } from '../components/ui/AppTextBold'
+import { theme } from '../../theme'
+import { AppButton } from '../components/ui/AppButton'
 
 export const MainScreen = ({showTodo}) => {
-    const { addTodo, doings, removeTodo } = useContext(TodoContext)
+    const { addTodo, doings, removeTodo, loading, error, fetchDoings } = useContext(TodoContext)
     const { changeScreen } = useContext(ScreenContext)
+
+    const loadDoings = useCallback(async () => await fetchDoings(), [fetchDoings])
+
+    useEffect(() => {
+        loadDoings()
+    }, [])
     let content = (
         <FlatList
             style={styles.list}
@@ -17,6 +27,22 @@ export const MainScreen = ({showTodo}) => {
             renderItem={({item}) => (<TodoItem data={item} onRemove={removeTodo} showTodo={changeScreen}/>)}/>
     )
 
+    if (loading) {
+        return <AppLoader/>
+    }
+
+    if (error) {
+        return (
+        <View style={styles.center}>
+            <View style={styles.textBlock}>
+            <AppTextBold style={styles.error}>Error</AppTextBold>
+            <AppTextBold style={styles.error}>Try later</AppTextBold>
+            </View>
+            <AppButton onPress={loadDoings} style={styles.again}>Try again</AppButton>
+            </View>
+        )
+    }
+
     if (doings.length === 0) {
         content = (
             <View style={styles.imgWrap}>
@@ -24,6 +50,7 @@ export const MainScreen = ({showTodo}) => {
             </View>
         )
     }
+
 
     return (
         <View>
@@ -46,5 +73,22 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%'
+    },
+    center: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    error: {
+        color: theme.DELETE_COLOR,
+        fontSize: 22
+    },
+    again: {
+        color: theme.DARK_COLOR,
+        fontSize: 20
+    },
+    textBlock: {
+        marginBottom: 30,
+        alignItems: 'center'
     }
 })

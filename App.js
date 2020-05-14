@@ -3,13 +3,13 @@ import * as Font from 'expo-font'
 import React, { useState } from 'react'
 
 import { MainLayout } from './src/MainLayout'
-import { ScreenState } from './src/context/screen/ScreenState'
 import { TodoState } from './src/context/todo/TodoState'
+import { ScreenState } from './src/context/screen/ScreenState'
 
 async function loadApplication() {
   await Font.loadAsync({
-    'font-regular': require('./assets/fonts/Roboto-Regular.ttf'),
-    'font-bold': require('./assets/fonts/Roboto-Bold.ttf')
+    'font-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'font-regular': require('./assets/fonts/Roboto-Regular.ttf')
   })
 }
 
@@ -27,10 +27,10 @@ export default function App() {
   }
 
   return (
-    <ScreenState>
-  <TodoState>
-    <MainLayout />
-  </TodoState>  
+  <ScreenState>
+    <TodoState>
+      <MainLayout />
+    </TodoState>  
   </ScreenState>
   )
 }
